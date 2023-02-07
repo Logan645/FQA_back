@@ -11,8 +11,10 @@ class FileController extends Controller
     //取得所有
     public function index()
     {
-        $files = File::get();
+        // $files = File::get();
+        $files = File::paginate(10);
 
+        // return $files;
         return $files;
     }
 

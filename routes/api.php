@@ -4,17 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\DepartmentController;
 use \App\Http\Controllers\FileController;
+use  App\Http\Controllers\AuthController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
-*/
 Route::get('/departments', [DepartmentController::class, 'index']);
 Route::get('/departments/{department}', [DepartmentController::class, 'show']);
 Route::post('/departments', [DepartmentController::class, 'store']);
@@ -27,6 +18,13 @@ Route::post('/files', [FileController::class, 'store']);
 Route::patch('/files/{file}', [FileController::class, 'update']);
 Route::delete('/files/{file}', [FileController::class, 'destroy']);
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::post('/register', [AuthController::class, 'register']);
+Route::post('/login', [AuthController::class, 'login']);
+
+Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/logout', [AuthController::class, 'logout']);
 });
+// Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+//     Route::get('/logout', [AuthController::class, 'logout']);
+//     return $request->user();
+// });
