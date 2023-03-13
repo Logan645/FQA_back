@@ -11,10 +11,8 @@ class FileController extends Controller
     //取得所有
     public function index()
     {
-        // $files = File::get();
-        $files = File::paginate(10);
-
-        // return $files;
+        $files = File::get();
+        // $files = File::paginate(10);
         return $files;
     }
 
@@ -46,7 +44,7 @@ class FileController extends Controller
 
         return $file;
     }
-    
+
     //刪除
     public function destroy(File $file, Request $request)
     {
